@@ -15,7 +15,7 @@ The first two should indicate that everything went fine, the OpenCL system compu
 In other words, the OpenCL compiler for AMD cannot correctly compile the small kernel code in `calc.c`. If you remove the variable `B2` it will work, however. The code is really small and quite easy to check that it is correct. 
 
 How to 'fix' the miscompile
-=============
+-------------
 Simply replace the function `clk_sr_pre` in `calc.c` with:
 
 ```
@@ -44,5 +44,5 @@ It should now indicate that everything is fine. This indicates that it is indeed
 
 
 Future work
-=============
+-------------
 The AMD OpenCL compiler has many other bugs too, but this only dmonstrates one miscompilation bug. I intend to make a fuzzer out of it. It shouldn't be very hard and it will probably find many bugs. Given that WebCL may become mainstream, this could become a major headache.
