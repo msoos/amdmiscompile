@@ -1,4 +1,4 @@
-AMD OpenCL mispompile demo
+AMD OpenCL miscompile demo
 =============
 
 This system demonstrates that the AMD OpenCL compiler miscompiles kernel code. To execute:
