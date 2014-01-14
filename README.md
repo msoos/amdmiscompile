@@ -17,4 +17,4 @@ In other words, the OpenCL compiler for AMD cannot correctly compile the small k
 
 Future work
 =============
-The AMD OpenCL compiler has many other bugs too, but this only dmonstrates the miscompilation bug. I intend to make a fuzzer out of it. It shouldn't be very hard and it will probably find many bugs. Given that WebCL may become mainstream, this could become a major headache.
+The AMD OpenCL compiler has many other bugs too, but this only dmonstrates one miscompilation bug. I intend to make a fuzzer out of it. It shouldn't be very hard and it will probably find many bugs. Given that WebCL may become mainstream, this could become a major headache.
