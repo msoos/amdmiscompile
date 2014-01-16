@@ -214,7 +214,7 @@ void Fuzzer::calc_enque_update()
     }
 
     //Issue the command
-    ret = clFlush(ocl->command_queue);
+    ret = clFinish(ocl->command_queue);
     if (ret != CL_SUCCESS) {
         cout << "Couldn't flush command queue" << endl;
         exit(-1);
