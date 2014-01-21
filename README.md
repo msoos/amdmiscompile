@@ -16,7 +16,7 @@ In other words, the OpenCL compiler for AMD cannot correctly compile the small k
 
 How to 'fix' the miscompile
 -------------
-Simply replace the function `clk_sr_pre` in `calc.c` with:
+Simply remove the bitwise inversion from 'c':
 
 ```
 void clk_sr_pre(struct Calc* calc)
@@ -25,9 +25,10 @@ void clk_sr_pre(struct Calc* calc)
     a = calc->dat[1];
     b = calc->dat[26];
     c = calc->dat[23];
-    //unsigned B2 = ( c    & (~b)  & (~a) );
-    unsigned A = ( a    & b   & (~c) );
-    //A |= B2;
+    unsigned B2 = ( a & (~b) );
+    //unsigned A = (  b   & (~c) ); //original
+    unsigned A = (  b   & (c) ); //'fixed'
+    A |= B2;
 
     calc->sig1 = A;
 }

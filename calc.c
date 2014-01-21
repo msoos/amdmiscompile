@@ -15,8 +15,8 @@ void clk_sr_pre(struct Calc* calc)
     a = calc->dat[1];
     b = calc->dat[26];
     c = calc->dat[23];
-    unsigned B2 = ( c    & (~b)  & (~a) );
-    unsigned A = ( a    & b   & (~c) );
+    unsigned B2 = ( a & (~b) );
+    unsigned A = (  b   & (~c) );
     A |= B2;
 
     calc->sig1 = A;
