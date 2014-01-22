@@ -113,7 +113,7 @@ void Fuzzer::set_kernel_args()
     }
 }
 
-void Fuzzer::handle_returned_data()
+int Fuzzer::handle_returned_data()
 {
     cout
     << "Going through " << (local_item_size * 32)
@@ -163,8 +163,10 @@ void Fuzzer::handle_returned_data()
     }
     if (allOK) {
         cout << "All computed data is OK" << endl;
+	return 0;
     } else {
         cout << "Some computed data is NOT OK!!" << endl;
+	return 1;
     }
 }
 
@@ -243,7 +245,7 @@ void Fuzzer::init_opencl()
     );
 }
 
-void Fuzzer::fuzz()
+int Fuzzer::fuzz()
 {
     assert(sharedData != NULL);
     init_opencl();
@@ -256,9 +258,10 @@ void Fuzzer::fuzz()
     sanityCheck.num_times_other_end = ~0;
     read_result();
     check_sanity_func();
-    handle_returned_data();
+    int ret = handle_returned_data();
 
     free_datastructs();
+    return ret;
 }
 
 void Fuzzer::free_datastructs()

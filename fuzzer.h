@@ -26,7 +26,7 @@ public:
         bool _optimize_compile
     );
 
-    void fuzz();
+    int fuzz();
     void set_verbosity(unsigned v);
     void set_device_num(const size_t _device_num);
     void set_shared_data(SharedData* sharedData);
@@ -41,7 +41,7 @@ private:
 
     //Run
     void calc_enque_update();
-    void handle_returned_data();
+    int handle_returned_data();
     void check_sanity_func() const;
     void check_and_release_events();
 

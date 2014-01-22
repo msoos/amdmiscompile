@@ -72,9 +72,9 @@ int main(int argc, char *argv[])
     SharedData sharedData;
     Fuzzer* fuzzer = new Fuzzer(optimize_compile);
     fuzzer->set_shared_data(&sharedData);
-    fuzzer->fuzz();
+    int ret = fuzzer->fuzz();
     delete fuzzer;
     cout << "Finished." << endl;
 
-    return 0;
+    return ret;
 }
