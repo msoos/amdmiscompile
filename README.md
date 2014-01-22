@@ -49,11 +49,11 @@ How to automate in a regression test suite
 The system returns `1` if miscompilation happens, and `0` if not:
 
 ```
-$ ./fuzzer
+$ ./fuzzer > /dev/null
 $ echo $?
 1
-$ ./fuzzer --cpu
-$ ehco ¢?
+$ ./fuzzer --cpu > /dev/null
+$ ehco $?
 0
 ````
 
