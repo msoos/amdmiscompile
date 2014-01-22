@@ -12,7 +12,7 @@ $ ./fuzzer
 
 The first two should indicate that everything went fine, the OpenCL system computed the values correctly if the code is compiled to run on the CPU or it's compiled in an unoptimized way. The last one, using OpenCL code compiled in optimized mode running on the GPU, shows that the compiler miscompiled the kernel and the data calculated is thus wrong.
 
-In other words, the OpenCL compiler for AMD cannot correctly compile the small kernel code in `calc.c`. If you remove the variable `B2` it will work, however. The code is really small and quite easy to check that it is correct. 
+In other words, the OpenCL compiler for AMD cannot correctly compile the small kernel code in `calc.c`. If you remove the bitwise inversion of `c` in `calc.c` it will work however. The code is really small and quite easy to check that it is correct. 
 
 How to 'fix' the miscompile
 -------------
@@ -41,8 +41,21 @@ $ make
 $ ./fuzzer
 ```
 
-It should now indicate that everything is fine. This indicates that it is indeed the OpenCL compiler that is responsible for the bug.
+It should now indicate that everything is fine. This demonstrates that it is indeed the OpenCL compiler that is responsible for the bug.
 
+How to automate in a regression test suite
+-------------
+
+The system returns `1` if miscompilation happens, and `0` if not:
+
+```
+$ ./fuzzer
+$ echo $?
+1
+$ ./fuzzer --cpu
+$ ehco ¢?
+0
+````
 
 Future work
 -------------
