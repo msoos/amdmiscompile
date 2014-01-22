@@ -21,6 +21,7 @@ Fuzzer::Fuzzer(
 ) :
     sharedData(NULL)
     , optimize_compile(_optimize_compile)
+    , device_num(0)
 {
     local_item_size = LOCAL_SIZE;
     final_main_size = NUM_OUTPUTS * local_item_size;
@@ -81,6 +82,11 @@ void Fuzzer::setup_graph_memory()
     }
 
     cout << "Set up graph mem " << endl;
+}
+
+void Fuzzer::set_device_num(int _device_num)
+{
+	device_num = _device_num;
 }
 
 void Fuzzer::set_kernel_args()
@@ -236,7 +242,7 @@ void Fuzzer::init_opencl()
 
     ocl = new OpenCLHelper(
         1
-        , 0 //the device number to use
+        , device_num
         , optimize_compile //disable optimization in the compiler
     );
     ocl->setup_background(

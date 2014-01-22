@@ -22,7 +22,7 @@ using std::string;
 class SharedData
 {
 public:
-    static void get_platform_and_devices(bool use_cpu);
+    static int get_platform_and_devices(bool use_cpu);
     static cl_platform_id platform_id;
     static cl_device_id device_id[10];
     static cl_uint num_devices;

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <stdlib.h>
+#include <errno.h>
 
 using std::cout;
 using std::cerr;
@@ -31,6 +33,7 @@ int main(int argc, char *argv[])
 {
     bool use_cpu = 0;
     int optimize_compile = 1;
+    int device = 0;
 
     const char* value;
     int j = 0;
@@ -38,6 +41,12 @@ int main(int argc, char *argv[])
     for (int i = 0; i < argc; i++) {
         if ((value = hasPrefix(argv[i], "--unoptimize"))) {
             optimize_compile = 0;
+        } else if ((value = hasPrefix(argv[i], "--device"))) {
+            device = (int)strtol(value, NULL, 10);
+            if (device == EINVAL || device == ERANGE) {
+                cout << "ERROR! illegal device number " << value << endl;
+                exit(0);
+            }
         } else if ((value = hasPrefix(argv[i], "--cpu"))) {
             use_cpu = true;
         } else if (
@@ -50,7 +59,7 @@ int main(int argc, char *argv[])
             print_usage();
             exit(-1);
         } else {
-            argv[j++] = argv[i];
+                argv[j++] = argv[i];
         }
     }
     argc = j;
@@ -68,10 +77,22 @@ int main(int argc, char *argv[])
         cout << "- Not optimizing compilation" << endl;
     }
 
-    SharedData::get_platform_and_devices(use_cpu);
+    int num_devices = SharedData::get_platform_and_devices(use_cpu);
+    if (device >= 0 && use_cpu) {
+        cout << "ERROR: --cpu can only be used with device number 0" << endl;
+        return -1;
+    }
+    if (device >= num_devices) {
+        cout
+        << "ERROR: You gave a device number that is too large. There are only "
+        << num_devices << " devices detected in your system" << endl;
+        return -1;
+    }
+    
     SharedData sharedData;
     Fuzzer* fuzzer = new Fuzzer(optimize_compile);
     fuzzer->set_shared_data(&sharedData);
+    fuzzer->set_device_num(device);
     int ret = fuzzer->fuzz();
     delete fuzzer;
     cout << "Finished." << endl;

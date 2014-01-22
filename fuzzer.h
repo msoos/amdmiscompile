@@ -28,7 +28,7 @@ public:
 
     int fuzz();
     void set_verbosity(unsigned v);
-    void set_device_num(const size_t _device_num);
+    void set_device_num(const int _device_num);
     void set_shared_data(SharedData* sharedData);
 
 private:
@@ -74,6 +74,7 @@ private:
     //OpenCL system
     OpenCLHelper* ocl;
     bool optimize_compile;
+    int device_num;
 };
 
 #endif //__FUZZER_H__

@@ -15,7 +15,7 @@ cl_platform_id SharedData::platform_id;
 cl_device_id SharedData::device_id[10];
 cl_uint SharedData::num_devices;
 
-void SharedData::get_platform_and_devices(bool use_cpu)
+int SharedData::get_platform_and_devices(bool use_cpu)
 {
     cl_int ret;
 
@@ -88,4 +88,5 @@ void SharedData::get_platform_and_devices(bool use_cpu)
         exit(-1);
     }
     cout << "Num GPU device(s) recognized: " << num_devices << endl;
+    return num_devices;
 }
