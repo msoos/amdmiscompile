@@ -24,8 +24,9 @@ void print_usage()
 {
     cout
     << "AMD bug demonstrator. Supported options: " << endl
-    << "--cpu        : use the CPU for computation" << endl
-    << "--unoptimize : do not optimize the compilation" << endl
+    << "--cpu          : use the CPU for computation" << endl
+    << "--unoptimize   : do not optimize the compilation" << endl
+    << "--devuce <num> : use this device number instead of device number 0" << endl
     << endl;
 }
 
