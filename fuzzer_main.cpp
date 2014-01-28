@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     }
 
     int num_devices = SharedData::get_platform_and_devices(use_cpu);
-    if (device >= 0 && use_cpu) {
+    if (device > 0 && use_cpu) {
         cout << "ERROR: --cpu can only be used with device number 0" << endl;
         return -1;
     }
